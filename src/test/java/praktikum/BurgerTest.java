@@ -6,9 +6,10 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)//
+@RunWith(MockitoJUnitRunner.class)
 public class BurgerTest {
     private Burger burger;
 
@@ -41,25 +42,58 @@ public class BurgerTest {
     }
 
     @Test
-    public void removeIngredientTest() {
+    public void removeIngredientTest_SizeAfterRemoval() {
+        // Добавляем ингредиенты
         burger.addIngredient(ingredient);
         burger.addIngredient(ingredient2);
         burger.addIngredient(ingredient3);
-        assertEquals(3, burger.ingredients.size());
 
+        // Удаляем один ингредиент
         burger.removeIngredient(2);
+
+        // Проверяем, что размер списка уменьшился
         assertEquals(2, burger.ingredients.size());
     }
 
     @Test
-    public void moveIngredientTest() {
+    public void removeIngredientTest_CorrectIngredientRemoved() {
+        // Добавляем ингредиенты
         burger.addIngredient(ingredient);
         burger.addIngredient(ingredient2);
         burger.addIngredient(ingredient3);
 
+        // Удаляем ингредиент на позиции 2
+        burger.removeIngredient(2);
+
+        // Проверяем, что удален правильный ингредиент
+        assertFalse(burger.ingredients.contains(ingredient3));
+    }
+
+    @Test
+    public void moveIngredientTest_NewPositionCorrect() {
+        // Добавляем ингредиенты
+        burger.addIngredient(ingredient);
+        burger.addIngredient(ingredient2);
+        burger.addIngredient(ingredient3);
+
+        // Перемещаем ингредиент с позиции 1 на позицию 2
         burger.moveIngredient(1, 2);
 
+        // Проверяем, что ингредиент оказался на новой позиции
         assertEquals(ingredient2, burger.ingredients.get(2));
+    }
+
+    @Test
+    public void moveIngredientTest_OldPositionCorrect() {
+        // Добавляем ингредиенты
+        burger.addIngredient(ingredient);
+        burger.addIngredient(ingredient2);
+        burger.addIngredient(ingredient3);
+
+        // Перемещаем ингредиент с позиции 1 на позицию 2
+        burger.moveIngredient(1, 2);
+
+        // Проверяем, что на старой позиции теперь другой ингредиент
         assertEquals(ingredient3, burger.ingredients.get(1));
     }
 

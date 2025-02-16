@@ -43,4 +43,34 @@ public class BunTest {
         assertEquals(price, actual, 0);
     }
 
+    @Test
+    public void getPriceTest_NegativePrice() {
+        String name = "Bun";
+        float negativePrice = -10.5f;
+        Bun bun = new Bun(name, negativePrice);
+        float actual = bun.getPrice();
+
+        assertEquals(negativePrice, actual, 0);
+    }
+
+    @Test
+    public void getPriceTest_ZeroPrice() {
+        String name = "Bun";
+        float zeroPrice = 0.0f;
+        Bun bun = new Bun(name, zeroPrice);
+        float actual = bun.getPrice();
+
+        assertEquals(zeroPrice, actual, 0);
+    }
+
+    @Test
+    public void getPriceTest_PositiveFractionalPrice() {
+        String name = "Bun";
+        float positiveFractionalPrice = 15.75f;
+        Bun bun = new Bun(name, positiveFractionalPrice);
+        float actual = bun.getPrice();
+
+        assertEquals(positiveFractionalPrice, actual, 0);
+    }
+
 }
